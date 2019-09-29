@@ -38,3 +38,7 @@ out
 
 # python
 *.pyc
+
+
+# other
+db

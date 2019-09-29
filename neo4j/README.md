@@ -15,3 +15,8 @@ MATCH p=(input)-[r:IN2OUT]->(output) where input.inName="provider_api_db.third_r
 
 查询表从哪些表加工来的：
 
+
+
+在neo4j中，节点在默认情况下是没有类型。
+- 1.9版本及以下，采取的策略是给每个节点增加一个type属性
+- 2.0版本以后，采用了“标签”的新特性
