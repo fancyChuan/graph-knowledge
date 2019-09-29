@@ -15,16 +15,20 @@ import java.io.File;
  *          String runtimeString = func();
  *          Relationship rel = DynamicRelationshipType.withName(runtimeString)
  */
-public class DemoApp {
+public class CreateGraphApp {
     private GraphDatabaseService graphDb;
-    public DemoApp() {
-        this.graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(new File("E:\\JavaWorkshop\\graph-knowledge\\neo4j\\db\\"));
+    public CreateGraphApp() {
+        File file = new File("E:\\JavaWorkshop\\graph-knowledge\\neo4j\\db\\");
+        this.graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(file);
     }
 
     public static void main(String[] args) {
-        DemoApp app = new DemoApp();
+        CreateGraphApp app = new CreateGraphApp();
         app.createUserNode();
-        app.createRelationship();
+        app.createUserRelationship();
+        app.setUserNodeProperty();
+        app.createMovieNode();
+        app.userMovieRelationship();
     }
 
 
@@ -44,7 +48,7 @@ public class DemoApp {
      * 2. 创建关系
      *      关系的创建需要运行事务
      */
-    public void createRelationship() {
+    public void createUserRelationship() {
         try (Transaction tx = graphDb.beginTx()) {
             Node user1 = graphDb.getNodeById(0);
             Node user2 = graphDb.getNodeById(1);
@@ -57,7 +61,7 @@ public class DemoApp {
     /**
      * 3. 设置节点属性
      */
-    public void setNodeProperty() {
+    public void setUserNodeProperty() {
         try (Transaction tx = graphDb.beginTx()) {
             Node user1 = graphDb.getNodeById(0);
             Node user2 = graphDb.getNodeById(1);
@@ -99,13 +103,13 @@ public class DemoApp {
      * 创建用户和节点的关系，并且设置关系的属性
      */
     public void userMovieRelationship() {
-        Node user1 = graphDb.getNodeById(0);
-        Node user2 = graphDb.getNodeById(1);
-        Node user3 = graphDb.getNodeById(2);
-        Node movie1 = graphDb.getNodeById(3);
-        Node movie2 = graphDb.getNodeById(4);
-        Node movie3 = graphDb.getNodeById(5);
         try (Transaction tx = graphDb.beginTx()) {
+            Node user1 = graphDb.getNodeById(0);
+            Node user2 = graphDb.getNodeById(1);
+            Node user3 = graphDb.getNodeById(2);
+            Node movie1 = graphDb.getNodeById(3);
+            Node movie2 = graphDb.getNodeById(4);
+            Node movie3 = graphDb.getNodeById(5);
             Relationship rel1 = user1.createRelationshipTo(movie1, MyRelationshipTypes.HAS_SEEN);
             rel1.setProperty("stars", 5);
             Relationship rel2 = user2.createRelationshipTo(movie3, MyRelationshipTypes.HAS_SEEN);
