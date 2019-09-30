@@ -53,7 +53,7 @@ public class CreateGraphApp {
             Node user1 = graphDb.getNodeById(0);
             Node user2 = graphDb.getNodeById(1);
             Node user3 = graphDb.getNodeById(2);
-            user1.createRelationshipTo(user2, new IsFriendOf());
+            user1.createRelationshipTo(user2, new IsFriendOf()); // user1是起始节点，user2是结束节点
             user1.createRelationshipTo(user3, MyRelationshipTypes.IS_FRIEND_OF);
             tx.success();
         }
